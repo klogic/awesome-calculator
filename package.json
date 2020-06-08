@@ -1,0 +1,14 @@
+{
+  "name": "awesome-calculator",
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": "git@github.com:klogic/awesome-calculator.git",
+  "author": "narongsak keawmanee <klogic@hotmail.co.th>",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^9.0.2"
+  }
+}
