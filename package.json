@@ -6,9 +6,14 @@
   "author": "narongsak keawmanee <klogic@hotmail.co.th>",
   "license": "MIT",
   "scripts": {
-    "start": "electron ."
+    "build": "tsc",
+    "watch": "tsc -w",
+    "start": "yarn build && electron ./dist/main.js"
   },
   "dependencies": {
     "electron": "^9.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.5"
   }
 }
