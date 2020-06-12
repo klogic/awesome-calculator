@@ -1,5 +1,14 @@
 # Awesome Calculator
 
+<p align="center">
+  <a href="https://github.com/klogic/awesome-calculator/actions?query=workflow%3A%22Unit+Test%22">
+    <img alt="Github Actions Build Status" src="https://img.shields.io/github/workflow/status/klogic/awesome-calculator/Unit%20Test/master?label=Unit%20Test&style=for-the-badge"></a>
+</p>
+
+---
+
+## Intro
+
 This project I started from my passionate. I want to create desktop application while simulate development workflow in real world. so this project should contain:
 
 - Split task to issue on github. so if you want to help. just pick issue and working on it.
