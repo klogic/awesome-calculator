@@ -9,8 +9,10 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-
-  win.loadFile(path.join(__dirname, "..", "index.html"));
+  const indexFile = path.join(__dirname, "..", "index.html");
+  const winURL =
+    process.env.NODE_ENV === "development" ? `http://localhost:8080` : `file://${indexFile}`;
+  win.loadURL(winURL);
 }
 
 app.whenReady().then(createWindow);
