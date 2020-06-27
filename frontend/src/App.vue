@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <CalculatorMain />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
+import CalculatorMain from "./components/CalculatorMain.vue";
 
 @Component({
   components: {
-    HelloWorld,
+    CalculatorMain,
   },
 })
 export default class App extends Vue {}
