@@ -1,6 +1,10 @@
 <template>
   <div id="calculator-btn">
-    <CalculatorBtnRow :buttons="['AC', '+/-', '%', '/']" :styleClass="'btn-style-1'" />
+    <CalculatorBtnRow
+      :buttons="['AC', '+/-', '%', '/']"
+      :styleClass="'btn-style-1'"
+      @inputText="onEnlargeText"
+    />
     <CalculatorBtnRow :buttons="[7, 8, 9, 'X']" :styleClass="'btn-style-2'" />
     <CalculatorBtnRow :buttons="[4, 5, 6, '-']" :styleClass="'btn-style-2'" />
     <CalculatorBtnRow :buttons="[1, 2, 3, '+']" :styleClass="'btn-style-2'" />
@@ -9,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue, Emit } from "vue-property-decorator";
 import CalculatorBtnRow from "./CalculatorBtnRow.vue";
 
 @Component({
@@ -17,5 +21,11 @@ import CalculatorBtnRow from "./CalculatorBtnRow.vue";
     CalculatorBtnRow,
   },
 })
-export default class CalculatorBtn extends Vue {}
+export default class CalculatorBtn extends Vue {
+  @Emit()
+  onEnlargeText(text) {
+    console.log("hi");
+    console.log(text);
+  }
+}
 </script>

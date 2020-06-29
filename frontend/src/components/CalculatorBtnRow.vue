@@ -2,19 +2,19 @@
   <div>
     <div v-if="buttons.length == 4" class="row" v-bind:class="styleClass">
       <div class="btn btn-input col" v-for="button in buttons" :key="button">
-        <div>
+        <div v-on:click="$emit('inputText', button)">
           {{ button }}
         </div>
       </div>
     </div>
     <div v-if="buttons.length == 3" class="row " v-bind:class="styleClass">
       <div class="btn btn-input col-6" v-for="button in buttons.slice(0, 1)" :key="button">
-        <div>
+        <div v-on:click="$emit('inputText', button)">
           {{ button }}
         </div>
       </div>
       <div class="btn btn-input col" v-for="button in buttons.slice(1)" :key="button">
-        <div>
+        <div v-on:click="$emit('inputText', button)">
           {{ button }}
         </div>
       </div>
@@ -23,13 +23,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 
 @Component
 export default class CalculatorBtnRow extends Vue {
   @Prop() private buttons!: [];
   @Prop() private styleClass!: string;
   checkCol6 = false;
+  inputText = "";
+
+  @Emit()
+  onClickButton(event: Event) {
+    console.log("event", event);
+    this.$emit("clicked", "someValue");
+  }
 
   get colFormat() {
     console.log("style class here", this.styleClass);
