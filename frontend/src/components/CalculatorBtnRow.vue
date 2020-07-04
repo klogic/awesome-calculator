@@ -30,13 +30,6 @@ export default class CalculatorBtnRow extends Vue {
   @Prop() private buttons!: [];
   @Prop() private styleClass!: string;
   checkCol6 = false;
-  inputText = "";
-
-  @Emit()
-  onClickButton(event: Event) {
-    console.log("event", event);
-    this.$emit("clicked", "someValue");
-  }
 
   get colFormat() {
     console.log("style class here", this.styleClass);

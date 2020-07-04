@@ -1,15 +1,24 @@
 <template>
   <div id="result" class="row ">
     <div class="input-group input-group-lg">
-      <input type="text" disabled="true" class="form-control" placeholder="0" />
+      <input type="text" disabled="true" class="form-control" :value="getResultText" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
+import { store } from "../store/index";
 
-@Component
+@Component({
+  store,
+  computed: {
+    getResultText() {
+      return this.$store.state.resultText || 0;
+    },
+  },
+})
 export default class CalculatorResult extends Vue {}
 </script>
 
