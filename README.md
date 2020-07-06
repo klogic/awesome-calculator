@@ -1,12 +1,14 @@
-<h4 align="center">We believe in quality product</h4>
-<p align="center">
+<div #id="header" align="center">
+<img src="https://user-images.githubusercontent.com/14157896/86553060-de4db400-bf73-11ea-89c0-6c303d94dfc3.png"/>
+<h1>Awesome Calculator</h1>
+<p>
   <a href="https://github.com/klogic/awesome-calculator/actions?query=workflow%3A%22Unit+Test%22">
     <img alt="Github Actions Build Status" src="https://img.shields.io/github/workflow/status/klogic/awesome-calculator/Unit%20Test/master?label=Unit%20Test&style=for-the-badge"></a>
 </p>
+<h4 >We believe in quality product</h4>
+</div>
 
 ---
-
-## Awesome Calculator
 
 This project I started from my passionate. I want to create desktop application while simulate development workflow in real world. so this project should contain:
 
