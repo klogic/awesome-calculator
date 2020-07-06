@@ -4,13 +4,16 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const operationList: string[] = [];
-const resultList: string[] = [];
+const inputList: string[] = [];
+let calculationString = "";
+
 export const store = new Vuex.Store({
   state: {
     resultText: "",
-    resultList,
+    inputList,
     operationList,
     resetNumber: false,
+    calculationString,
   },
   getters: {
     isOperation: state => (input: string) => {
@@ -21,9 +24,10 @@ export const store = new Vuex.Store({
       return -convertNumber;
     },
     mapOperation: state => (input: string) => {
+      const inputListLength = state.inputList.length;
       switch (input) {
         case "AC":
-          state.resultText = "";
+          store.commit("clearAllState");
           break;
         case "+/-":
           state.resultText = store.getters.reversePositiveNegative(state.resultText);
@@ -32,13 +36,23 @@ export const store = new Vuex.Store({
         case "-":
         case "X":
         case "/":
-          state.resultList.push(state.resultText);
+          if (state.resultText) {
+            state.inputList.push(state.resultText);
+          }
           state.operationList.push(input);
-          const resultListLength = state.resultList.length;
-          state.resultText = state.resultList[resultListLength - 1];
+          state.resultText = state.inputList[inputListLength - 1];
           state.resetNumber = !state.resetNumber;
           break;
         default:
+        case "=":
+          if (state.resultText) {
+            state.inputList.push(state.resultText);
+          }
+          inputList.forEach((item, index) => {
+            console.log("item", item);
+            calculationString += item + operationList?.[index] || null;
+          });
+          console.log("input List is ", calculationString);
           break;
       }
     },
@@ -55,7 +69,16 @@ export const store = new Vuex.Store({
       } else {
         state.resultText += input;
       }
-      console.log(state.resultText, input);
+    },
+    clearAllState(state) {
+      state.resultText = "";
+      state.inputList = [];
+      state.operationList = [];
+      state.resetNumber = false;
+      state.calculationString = "";
+      console.log("state.resultText", state.resultText);
+      console.log("state.inputList", state.inputList);
+      console.log("state.operationList", state.operationList);
     },
   },
 });
