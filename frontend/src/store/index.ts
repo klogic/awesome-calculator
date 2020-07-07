@@ -5,16 +5,13 @@ Vue.use(Vuex);
 
 const operationList: string[] = [];
 const inputList: string[] = [];
-let calculationString = "";
+const calculationString = "";
+function initialState() {
+  return { resultText: "", inputList, operationList, resetNumber: false, calculationString };
+}
 
 export const store = new Vuex.Store({
-  state: {
-    resultText: "",
-    inputList,
-    operationList,
-    resetNumber: false,
-    calculationString,
-  },
+  state: initialState(),
   getters: {
     isOperation: state => (input: string) => {
       return !Number(input);
@@ -37,27 +34,35 @@ export const store = new Vuex.Store({
         case "X":
         case "/":
           if (state.resultText) {
-            state.inputList.push(state.resultText);
+            store.commit("pushInputList", state.resultText);
           }
-          state.operationList.push(input);
+          store.commit("pushOperationList", input);
           state.resultText = state.inputList[inputListLength - 1];
           state.resetNumber = !state.resetNumber;
           break;
         default:
         case "=":
           if (state.resultText) {
-            state.inputList.push(state.resultText);
+            store.commit("pushInputList", state.resultText);
           }
-          inputList.forEach((item, index) => {
-            console.log("item", item);
-            calculationString += item + operationList?.[index] || null;
-          });
-          console.log("input List is ", calculationString);
+          store.commit("calculateResult");
           break;
       }
     },
   },
   mutations: {
+    calculateResult(state) {
+      console.log(inputList, "inputList");
+      inputList.forEach((item, index) => {
+        state.calculationString += item + (operationList[index] || "");
+      });
+    },
+    pushOperationList(state, input) {
+      state.operationList.push(input);
+    },
+    pushInputList(state, input) {
+      state.inputList.push(input);
+    },
     setResultText(state, input) {
       if (state.resetNumber === true) {
         state.resultText = "";
@@ -70,15 +75,11 @@ export const store = new Vuex.Store({
         state.resultText += input;
       }
     },
-    clearAllState(state) {
-      state.resultText = "";
-      state.inputList = [];
-      state.operationList = [];
-      state.resetNumber = false;
-      state.calculationString = "";
-      console.log("state.resultText", state.resultText);
-      console.log("state.inputList", state.inputList);
-      console.log("state.operationList", state.operationList);
-    },
+    // clearAllState(state) {
+    //   const s = initialState();
+    //   Object.keys(s).forEach(key => {
+    //     state[key] = s[key];
+    //   });
+    // },
   },
 });
