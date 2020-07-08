@@ -6,8 +6,23 @@ Vue.use(Vuex);
 const operationList: string[] = [];
 const inputList: string[] = [];
 const calculationString = "";
+function clearState() {
+  return {
+    resultText: "",
+    inputList: [],
+    operationList: [],
+    resetNumber: false,
+    calculationString,
+  };
+}
 function initialState() {
-  return { resultText: "", inputList, operationList, resetNumber: false, calculationString };
+  return {
+    resultText: "",
+    inputList,
+    operationList,
+    resetNumber: false,
+    calculationString,
+  };
 }
 
 export const store = new Vuex.Store({
@@ -52,9 +67,9 @@ export const store = new Vuex.Store({
   },
   mutations: {
     calculateResult(state) {
-      console.log(inputList, "inputList");
-      inputList.forEach((item, index) => {
-        state.calculationString += item + (operationList[index] || "");
+      console.log(state.inputList, "inputList");
+      state.inputList.forEach((item, index) => {
+        state.calculationString += item + (state.operationList[index] || "");
       });
     },
     pushOperationList(state, input) {
@@ -75,11 +90,9 @@ export const store = new Vuex.Store({
         state.resultText += input;
       }
     },
-    // clearAllState(state) {
-    //   const s = initialState();
-    //   Object.keys(s).forEach(key => {
-    //     state[key] = s[key];
-    //   });
-    // },
+    clearAllState(state) {
+      Object.assign(state, clearState());
+      console.log("state[key]", state);
+    },
   },
 });
