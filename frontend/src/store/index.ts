@@ -67,16 +67,24 @@ export const store = new Vuex.Store({
   },
   mutations: {
     calculateResult(state) {
-      console.log(state.inputList, "inputList");
       state.inputList.forEach((item, index) => {
         state.calculationString += item + (state.operationList[index] || "");
       });
+      store.commit("popOperationList");
+      store.commit("popInputList");
+      console.log(state.calculationString);
     },
     pushOperationList(state, input) {
       state.operationList.push(input);
     },
     pushInputList(state, input) {
       state.inputList.push(input);
+    },
+    popOperationList(state) {
+      state.operationList = state.operationList.slice(-1);
+    },
+    popInputList(state) {
+      state.inputList = state.inputList.slice(-1);
     },
     setResultText(state, input) {
       if (state.resetNumber === true) {
