@@ -29,7 +29,7 @@ export const store = new Vuex.Store({
   state: initialState(),
   getters: {
     isOperation: state => (input: string) => {
-      return !Number(input);
+      return isNaN(Number(input));
     },
     reversePositiveNegative: state => (input: string) => {
       const convertNumber = Number(input);
@@ -48,43 +48,27 @@ export const store = new Vuex.Store({
         case "-":
         case "X":
         case "/":
-          if (state.resultText) {
-            store.commit("pushInputList", state.resultText);
+          if (input == "X") {
+            input = "*";
           }
-          store.commit("pushOperationList", input);
+          store.commit("addToCalculationString", input);
           state.resultText = state.inputList[inputListLength - 1];
           state.resetNumber = !state.resetNumber;
           break;
         default:
         case "=":
-          if (state.resultText) {
-            store.commit("pushInputList", state.resultText);
-          }
           store.commit("calculateResult");
           break;
       }
     },
   },
   mutations: {
+    addToCalculationString(state, input) {
+      state.calculationString += input;
+    },
     calculateResult(state) {
-      state.inputList.forEach((item, index) => {
-        state.calculationString += item + (state.operationList[index] || "");
-      });
-      store.commit("popOperationList");
-      store.commit("popInputList");
-      console.log(state.calculationString);
-    },
-    pushOperationList(state, input) {
-      state.operationList.push(input);
-    },
-    pushInputList(state, input) {
-      state.inputList.push(input);
-    },
-    popOperationList(state) {
-      state.operationList = state.operationList.slice(-1);
-    },
-    popInputList(state) {
-      state.inputList = state.inputList.slice(-1);
+      const result = eval(state.calculationString);
+      state.resultText = result;
     },
     setResultText(state, input) {
       if (state.resetNumber === true) {
@@ -96,6 +80,7 @@ export const store = new Vuex.Store({
         store.getters.mapOperation(input);
       } else {
         state.resultText += input;
+        state.calculationString += input;
       }
     },
     clearAllState(state) {
