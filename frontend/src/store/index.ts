@@ -3,25 +3,25 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-const operationList: string[] = [];
 const inputList: string[] = [];
+const previousText = "";
 const calculationString = "";
 function clearState() {
   return {
     resultText: "",
     inputList: [],
-    operationList: [],
     resetNumber: false,
     calculationString,
+    previousText: "",
   };
 }
 function initialState() {
   return {
     resultText: "",
     inputList,
-    operationList,
     resetNumber: false,
     calculationString,
+    previousText,
   };
 }
 
@@ -43,6 +43,11 @@ export const store = new Vuex.Store({
           break;
         case "+/-":
           state.resultText = store.getters.reversePositiveNegative(state.resultText);
+          if (state.previousText) {
+            store.commit("removeFromCalculationString", state.previousText);
+          }
+          store.commit("addToCalculationString", state.resultText);
+          state.previousText = state.resultText;
           break;
         case "+":
         case "-":
@@ -63,8 +68,14 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
+    removeFromCalculationString(state, input: string) {
+      const inputLength = String(input).length;
+      const originalLenght = state.calculationString.length;
+      state.calculationString = state.calculationString.substring(0, originalLenght - inputLength);
+    },
     addToCalculationString(state, input) {
       state.calculationString += input;
+      console.log(state.calculationString);
     },
     calculateResult(state) {
       const result = eval(state.calculationString);
