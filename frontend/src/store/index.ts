@@ -4,7 +4,6 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const inputList: string[] = [];
-const previousText = "";
 const calculationString = "";
 function clearState() {
   return {
@@ -12,7 +11,6 @@ function clearState() {
     inputList: [],
     resetNumber: false,
     calculationString,
-    previousText: "",
   };
 }
 function initialState() {
@@ -21,7 +19,6 @@ function initialState() {
     inputList,
     resetNumber: false,
     calculationString,
-    previousText,
   };
 }
 
@@ -43,9 +40,7 @@ export const store = new Vuex.Store({
           break;
         case "+/-":
           state.resultText = store.getters.reversePositiveNegative(state.resultText);
-          state.previousText = state.resultText;
-          store.commit("removeFromCalculationString", state.previousText);
-          // store.commit("addToCalculationString", state.resultText);
+          store.commit("removeFromCalculationString", state.resultText);
           break;
         case "+":
         case "-":
@@ -67,14 +62,10 @@ export const store = new Vuex.Store({
   },
   mutations: {
     removeFromCalculationString(state, input: string) {
-      console.log("input", input);
-      console.log("original", state.calculationString);
       const inputLength = String(input).length;
       const originalLenght = state.calculationString.length;
-      console.log("before", state.calculationString);
-      state.calculationString = state.calculationString.substring(inputLength, originalLenght);
-      store.commit("addToCalculationString", state.resultText);
-      console.log("after", state.calculationString);
+      state.calculationString = state.calculationString.slice(0, -inputLength);
+      store.commit("addToCalculationString", input);
     },
     addToCalculationString(state, input) {
       state.calculationString += input;
