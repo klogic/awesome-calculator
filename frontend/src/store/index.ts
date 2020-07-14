@@ -34,6 +34,7 @@ export const store = new Vuex.Store({
     },
     mapOperation: state => (input: string) => {
       const inputListLength = state.inputList.length;
+      let resultPercent = null;
       switch (input) {
         case "AC":
           store.commit("clearAllState");
@@ -41,6 +42,11 @@ export const store = new Vuex.Store({
         case "+/-":
           state.resultText = store.getters.reversePositiveNegative(state.resultText);
           store.commit("removeFromCalculationString", state.resultText);
+          break;
+        case "%":
+          resultPercent = Number(state.resultText) / 100;
+          state.resultText = String(resultPercent);
+          store.commit("removeFromCalculationString", resultPercent);
           break;
         case "+":
         case "-":
@@ -69,7 +75,6 @@ export const store = new Vuex.Store({
     },
     addToCalculationString(state, input) {
       state.calculationString += input;
-      console.log(state.calculationString);
     },
     calculateResult(state) {
       const result = eval(state.calculationString);
@@ -90,7 +95,6 @@ export const store = new Vuex.Store({
     },
     clearAllState(state) {
       Object.assign(state, clearState());
-      console.log("state[key]", state);
     },
   },
 });
