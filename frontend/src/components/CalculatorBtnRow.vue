@@ -32,7 +32,6 @@ export default class CalculatorBtnRow extends Vue {
   checkCol6 = false;
 
   get colFormat() {
-    console.log("style class here", this.styleClass);
     if (this.buttons.length <= 3 && !this.checkCol6) {
       this.checkCol6 = true;
     }
