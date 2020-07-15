@@ -46,7 +46,13 @@ export const store = new Vuex.Store({
         case "%":
           resultPercent = Number(state.resultText) / 100;
           state.resultText = String(resultPercent);
-          store.commit("removeFromCalculationString", resultPercent);
+          state.calculationString = state.resultText;
+          break;
+        case ".":
+          if (String(state.resultText).indexOf(".") === -1) {
+            store.commit("addToCalculationString", input);
+            state.resultText += input;
+          }
           break;
         case "+":
         case "-":
@@ -85,7 +91,6 @@ export const store = new Vuex.Store({
         state.resultText = "";
         state.resetNumber = !state.resetNumber;
       }
-
       if (store.getters.isOperation(input)) {
         store.getters.mapOperation(input);
       } else {
