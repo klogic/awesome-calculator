@@ -35,23 +35,25 @@ export const store = new Vuex.Store({
     mapOperation: state => (input: string) => {
       const inputListLength = state.inputList.length;
       let resultPercent = null;
+      let reverseResult = null;
       switch (input) {
         case "AC":
           store.commit("clearAllState");
           break;
         case "+/-":
-          state.resultText = store.getters.reversePositiveNegative(state.resultText);
-          store.commit("removeFromCalculationString", state.resultText);
+          reverseResult = store.getters.reversePositiveNegative(state.resultText);
+          store.commit("setFixedResultText", reverseResult);
+          store.commit("removeFromCalculationString", reverseResult);
           break;
         case "%":
-          resultPercent = Number(state.resultText) / 100;
-          state.resultText = String(resultPercent);
-          state.calculationString = state.resultText;
+          resultPercent = String(Number(state.resultText) / 100);
+          store.commit("setFixedResultText", resultPercent);
+          state.calculationString = resultPercent;
           break;
         case ".":
           if (String(state.resultText).indexOf(".") === -1) {
             store.commit("addToCalculationString", input);
-            state.resultText += input;
+            store.commit("addToResultText", input);
           }
           break;
         case "+":
@@ -85,6 +87,12 @@ export const store = new Vuex.Store({
     calculateResult(state) {
       const result = eval(state.calculationString);
       state.resultText = result;
+    },
+    addToResultText(state, input) {
+      state.resultText += input;
+    },
+    setFixedResultText(state, input) {
+      state.resultText = input;
     },
     setResultText(state, input) {
       if (state.resetNumber === true) {
