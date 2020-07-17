@@ -48,7 +48,7 @@ export const store = new Vuex.Store({
         case "%":
           resultPercent = String(Number(state.resultText) / 100);
           store.commit("setFixedResultText", resultPercent);
-          state.calculationString = resultPercent;
+          store.commit("addToCalculationString", resultPercent);
           break;
         case ".":
           if (String(state.resultText).indexOf(".") === -1) {
@@ -63,9 +63,21 @@ export const store = new Vuex.Store({
           if (input == "X") {
             input = "*";
           }
-          store.commit("addToCalculationString", input);
-          state.resultText = state.inputList[inputListLength - 1];
-          state.resetNumber = !state.resetNumber;
+          if (
+            Number(
+              state.calculationString.slice(
+                state.calculationString.length - 1,
+                state.calculationString.length,
+              ),
+            )
+          ) {
+            store.commit("addToCalculationString", input);
+            store.commit(
+              "setFixedResultText",
+              state.calculationString.slice(0, state.calculationString.length - 1),
+            );
+            state.resetNumber = !state.resetNumber;
+          }
           break;
         default:
         case "=":
@@ -77,7 +89,6 @@ export const store = new Vuex.Store({
   mutations: {
     removeFromCalculationString(state, input: string) {
       const inputLength = String(input).length;
-      const originalLenght = state.calculationString.length;
       state.calculationString = state.calculationString.slice(0, -inputLength);
       store.commit("addToCalculationString", input);
     },
@@ -92,6 +103,7 @@ export const store = new Vuex.Store({
       state.resultText += input;
     },
     setFixedResultText(state, input) {
+      console.log("setFixresultText", input);
       state.resultText = input;
     },
     setResultText(state, input) {
