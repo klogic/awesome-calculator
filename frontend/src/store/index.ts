@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+const { ipcRenderer } = window.require("electron");
 
 Vue.use(Vuex);
 
@@ -98,12 +99,12 @@ export const store = new Vuex.Store({
     calculateResult(state) {
       const result = eval(state.calculationString);
       state.resultText = result;
+      ipcRenderer.send("calculate-result", { result });
     },
     addToResultText(state, input) {
       state.resultText += input;
     },
     setFixedResultText(state, input) {
-      console.log("setFixresultText", input);
       state.resultText = input;
     },
     setResultText(state, input) {
