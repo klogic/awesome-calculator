@@ -9,6 +9,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "start:dev": "yarn build && NODE_ENV=development electron  ./dist/main.js",
+    "start:production": "yarn build && NODE_ENV=production electron  ./dist/main.js",
     "serve": "cd frontend && yarn serve",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
@@ -16,8 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "electron": "^9.0.2",
-    "vuex": "^3.5.1"
+    "electron": "^9.0.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
