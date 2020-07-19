@@ -32,23 +32,17 @@
 import { Component, Vue, Emit } from "vue-property-decorator";
 import CalculatorBtnRow from "./CalculatorBtnRow.vue";
 import { mapMutations } from "vuex";
-import { store } from "../store/index";
 
 @Component({
   components: {
-    CalculatorBtnRow,
+    CalculatorBtnRow: Vue.extend(CalculatorBtnRow),
   },
-  store,
-  methods: {
-    setResultText(text) {
-      this.$store.commit("setResultText", text);
-    },
-  },
+  methods: mapMutations(["setResultText"]),
 })
 export default class CalculatorBtn extends Vue {
   @Emit()
-  onButtonClick(text) {
-    this.setResultText(text);
+  onButtonClick(text: string) {
+    this.$store.commit("setResultText", text);
   }
 }
 </script>
