@@ -26,15 +26,14 @@ function initialState() {
 export const store = new Vuex.Store({
   state: initialState(),
   getters: {
-    isOperation: state => (input: string) => {
+    isOperation: () => (input: string) => {
       return isNaN(Number(input));
     },
-    reversePositiveNegative: state => (input: string) => {
+    reversePositiveNegative: () => (input: string) => {
       const convertNumber = Number(input);
       return -convertNumber;
     },
     mapOperation: state => (input: string) => {
-      const inputListLength = state.inputList.length;
       let resultPercent = null;
       let reverseResult = null;
       switch (input) {
