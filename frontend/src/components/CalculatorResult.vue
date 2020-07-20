@@ -1,5 +1,5 @@
 <template>
-  <div id="result" class="row ">
+  <div id="result" class="row">
     <div class="input-group input-group-lg">
       <input type="text" disabled="true" class="form-control" :value="getResultText" />
     </div>
@@ -7,12 +7,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
-import { store } from "../store/index";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  store,
   computed: {
     getResultText() {
       return this.$store.state.resultText || 0;

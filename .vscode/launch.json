@@ -4,12 +4,23 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Electron Main",
+      "name": "Electron Launch Dev",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
       "program": "${workspaceFolder}/dist/main.js",
       "skipFiles": ["<node_internals>/**"],
       "env": {
         "NODE_ENV": "development"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Electron Launch Production",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "program": "${workspaceFolder}/dist/main.js",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "production"
       }
     },
     {

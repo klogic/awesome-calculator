@@ -9,7 +9,7 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-  const indexFile = path.join(__dirname, "..", "index.html");
+  const indexFile = path.join(__dirname, "frontend", "dist", "index.html");
   const winURL =
     process.env.NODE_ENV === "development" ? `http://localhost:8080` : `file://${indexFile}`;
   win.loadURL(winURL);
