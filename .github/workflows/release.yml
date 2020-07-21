@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn install
+        run: yarn install
       - name: Build Application
-      - run: yarn build:prod && yarn dist
+        run: yarn build:prod && yarn dist
       - name: Zip Application
         run: |
           zip awesome-calculator.zip ./awesome-calculator/mac/awesome-calculator.app
