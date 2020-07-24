@@ -22,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Zip Application
         run: |
-          zip awesome-calculator.zip ./awesome-calculator/mac/awesome-calculator.app
+          zip awesome-calculator-${{ github.ref }}.zip ./awesome-calculator/mac/awesome-calculator.app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
@@ -42,6 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./awesome-calculator.zip
-          asset_name: awesome-calculator.app
+          asset_path: ./awesome-calculator-${{ github.ref }}.zip
+          asset_name: awesome-calculator-${{ github.ref }}.app
           asset_content_type: application/zip
