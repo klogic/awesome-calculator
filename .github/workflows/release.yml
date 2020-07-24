@@ -24,7 +24,7 @@ jobs:
         run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
       - name: Zip Application
         run: |
-          zip awesome-calculator-${{ env.RELEASE_VERSION }}.zip ./awesome-calculator/mac/awesome-calculator.app
+          zip -r awesome-calculator-${{ env.RELEASE_VERSION }}.zip ./awesome-calculator/mac/awesome-calculator.app/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
