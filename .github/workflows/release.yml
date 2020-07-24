@@ -24,7 +24,7 @@ jobs:
         run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
       - name: Zip Application
         run: |
-          zip awesome-calculator-$RELEASE_VERSION.zip ./awesome-calculator/mac/awesome-calculator.app
+          zip awesome-calculator-${{ env.RELEASE_VERSION }}.zip ./awesome-calculator/mac/awesome-calculator.app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
@@ -44,6 +44,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./awesome-calculator-$RELEASE_VERSION.zip
-          asset_name: awesome-calculator-$RELEASE_VERSION.app
+          asset_path: ./awesome-calculator-${{ env.RELEASE_VERSION }}.zip
+          asset_name: awesome-calculator-${{ env.RELEASE_VERSION }}.zip
           asset_content_type: application/zip
