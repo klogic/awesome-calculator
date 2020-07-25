@@ -10,6 +10,13 @@
 
 ---
 
+## V1.0.0 [Download Now](https://github.com/klogic/awesome-calculator/releases/tag/v1.0.10)
+
+- Support Calculator by Button Click
+- Support MacOs
+
+## About This Project
+
 This project I started from my passionate. I want to create desktop application while simulate development workflow in real world. so this project should contain:
 
 - Split task to issue on github. so if you want to help. just pick issue and working on it.
